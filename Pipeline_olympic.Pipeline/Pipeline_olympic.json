@@ -1,0 +1,107 @@
+{
+    "name": "Pipeline_olympic",
+    "objectId": "e86dea13-bbeb-4d25-86ed-457cab4bddd3",
+    "properties": {
+        "activities": [
+            {
+                "name": "Bronze",
+                "type": "RefreshDataflow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "c8c716bc-21c1-4c31-a984-d4c6a69e7294",
+                    "workspaceId": "2c442328-5034-46f0-8872-b9f491b62f96",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric",
+                    "executeMashupQueriesOnly": true
+                }
+            },
+            {
+                "name": "Sliver",
+                "type": "RefreshDataflow",
+                "dependsOn": [
+                    {
+                        "activity": "Bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "38189fa0-1d95-4552-a032-dfeaf5ce3a23",
+                    "workspaceId": "2c442328-5034-46f0-8872-b9f491b62f96",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric",
+                    "executeMashupQueriesOnly": true
+                }
+            },
+            {
+                "name": "Gold",
+                "type": "RefreshDataflow",
+                "dependsOn": [
+                    {
+                        "activity": "Sliver",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "d8a40e39-f829-4440-b33c-242ea6c9f739",
+                    "workspaceId": "2c442328-5034-46f0-8872-b9f491b62f96",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric",
+                    "executeMashupQueriesOnly": true
+                }
+            },
+            {
+                "name": "Fact_Gold",
+                "type": "RefreshDataflow",
+                "dependsOn": [
+                    {
+                        "activity": "Gold",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "7022d128-47c7-4bf7-86a2-bf0eba6a8bbf",
+                    "workspaceId": "2c442328-5034-46f0-8872-b9f491b62f96",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric",
+                    "executeMashupQueriesOnly": true
+                }
+            }
+        ],
+        "lastModifiedByObjectId": "383ff75a-0fe8-4033-84c2-ebd9b4dd44f8",
+        "lastPublishTime": "2026-06-27T13:02:26Z"
+    }
+}
