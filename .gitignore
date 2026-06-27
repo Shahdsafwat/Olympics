@@ -1,0 +1,6 @@
+# Fabric Lakehouse data
+*.csv
+*.parquet
+
+olympicslakehouse.Lakehouse/Files/
+olympicslakehouse.Lakehouse/Tables/
